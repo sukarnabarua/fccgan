@@ -204,14 +204,14 @@ def get_stdgan_loss_dis(real_outputs, fake_outputs, batch_size = 64):
     loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=real_targets,logits=real_outputs))
     loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=fake_targets,logits=fake_outputs))
     return 5.0 * (loss_real + loss_fake)
-    #a multiplication factor for loss may better better to balance between generator and discriminator update rate
+    #a multiplication factor for loss can balance between generator and discriminator update rate
 
 
 def get_stdgan_loss_gen(fake_outputs, batch_size = 64):
     fake_outputs = tf.reshape(fake_outputs, (-1, 1))
     real_targets = tf.constant(np.ones((batch_size, 1)).astype(np.float32), shape=(batch_size, 1))
     return 2.0 * tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=real_targets,logits=fake_outputs))
-    # a multiplication factor for loss may better better to balance between generator and discriminator update rate
+    # a multiplication factor for loss can balance between generator and discriminator update rate
 
 #Set to False to train, True to load pretrained model and compute Inception score
 pretrained = False
